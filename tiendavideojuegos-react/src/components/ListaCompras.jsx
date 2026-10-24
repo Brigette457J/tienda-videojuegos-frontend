@@ -28,37 +28,39 @@ function ListaCompras() {
     };
 
     return (
-        <div>
-            <h2>Compras de la Tienda de Videojuegos</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Videojuego</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Total</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {compras.map(c => (
-                        <tr key={c.id}>
-                            <td>{c.cliente}</td>
-                            <td>{c.videojuego}</td>
-                            <td>{c.cantidad}</td>
-                            <td>${c.precio}</td>
-                            <td>${c.total}</td>
-                            <td>{c.fecha}</td>
-                            <td>
-                                <button onClick={() => setCompraSeleccionada(c)}>Editar</button>
-                                <button onClick={() => eliminarCompra(c.id)}>Eliminar</button>
-                            </td>
+        <div className="section-container">
+            <h2 className="section-title">Historial de Compras</h2>
+            <div className="table-container">
+                <table className="gamer-table">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Videojuego</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {compras.map(c => (
+                            <tr key={c.id}>
+                                <td>{c.cliente}</td>
+                                <td>{c.videojuego}</td>
+                                <td>{c.cantidad}</td>
+                                <td>${c.precio}</td>
+                                <td>${c.total}</td>
+                                <td>{c.fecha}</td>
+                                <td>
+                                    <button onClick={() => setCompraSeleccionada(c)} className="btn btn-edit">Editar</button>
+                                    <button onClick={() => eliminarCompra(c.id)} className="btn btn-delete">Eliminar</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             {compraSeleccionada && (
                 <EditarCompra 

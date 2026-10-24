@@ -11,7 +11,6 @@ function EditarCompra({ compra, onUpdate }) {
     const [clientes, setClientes] = useState([]);
     const [videojuegos, setVideojuegos] = useState([]);
 
-    // Cargar las listas para los selectores
     useEffect(() => {
         api.get('/clientes')
             .then(res => setClientes(res.data))
@@ -34,27 +33,30 @@ function EditarCompra({ compra, onUpdate }) {
         api.put(`/compras/${compra.id}`, formData)
             .then(res => {
                 alert(res.data.message);
-                onUpdate(); // Refresca la lista de compras en el componente padre
+                onUpdate(); 
             })
             .catch(err => console.error('Error al actualizar compra', err));
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <select name="cliente_id" value={formData.cliente_id} onChange={handleChange} required>
-                {clientes.map(cl => (
-                    <option key={cl.id} value={cl.id}>{cl.nombre} - {cl.correo}</option>
-                ))}
-            </select>
-            <select name="videojuego_id" value={formData.videojuego_id} onChange={handleChange} required>
-                {videojuegos.map(v => (
-                    <option key={v.id} value={v.id}>{v.titulo} - ${v.precio}</option>
-                ))}
-            </select>
-            <input type="number" name="cantidad" value={formData.cantidad} onChange={handleChange} required />
-            <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} required />
-            <button type="submit">Actualizar Compra</button>
-        </form>
+        <div className="edit-form-container">
+            <h3 className="edit-form-title">Editando la compra #{compra.id}</h3>
+            <form onSubmit={handleSubmit} className="gamer-form">
+                <select name="cliente_id" value={formData.cliente_id} onChange={handleChange} required className="form-select">
+                    {clientes.map(cl => (
+                        <option key={cl.id} value={cl.id}>{cl.nombre} - {cl.correo}</option>
+                    ))}
+                </select>
+                <select name="videojuego_id" value={formData.videojuego_id} onChange={handleChange} required className="form-select">
+                    {videojuegos.map(v => (
+                        <option key={v.id} value={v.id}>{v.titulo} - ${v.precio}</option>
+                    ))}
+                </select>
+                <input type="number" name="cantidad" value={formData.cantidad} onChange={handleChange} required className="form-input" />
+                <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} required className="form-input" />
+                <button type="submit" className="btn btn-update">Guardar Cambios</button>
+            </form>
+        </div>
     );
 }
 

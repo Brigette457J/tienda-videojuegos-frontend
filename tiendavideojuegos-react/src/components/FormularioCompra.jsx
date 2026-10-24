@@ -11,7 +11,6 @@ function FormularioCompra() {
     const [clientes, setClientes] = useState([]);
     const [videojuegos, setVideojuegos] = useState([]);
 
-    // Cargar listas de clientes y videojuegos al iniciar
     useEffect(() => {
         api.get('/clientes')
             .then(res => setClientes(res.data))
@@ -40,24 +39,24 @@ function FormularioCompra() {
     };
 
     return (
-        <div>
-            <h2>Registrar Nueva Compra</h2>
-            <form onSubmit={handleSubmit}>
-                <select name="cliente_id" value={formData.cliente_id} onChange={handleChange} required>
+        <div className="section-container">
+            <h2 className="section-title">Registrar Nueva Compra</h2>
+            <form onSubmit={handleSubmit} className="gamer-form">
+                <select name="cliente_id" value={formData.cliente_id} onChange={handleChange} required className="form-select">
                     <option value="">Seleccione un Cliente</option>
                     {clientes.map(cl => (
                         <option key={cl.id} value={cl.id}>{cl.nombre} - {cl.correo}</option>
                     ))}
                 </select>
-                <select name="videojuego_id" value={formData.videojuego_id} onChange={handleChange} required>
+                <select name="videojuego_id" value={formData.videojuego_id} onChange={handleChange} required className="form-select">
                     <option value="">Seleccione un Videojuego</option>
                     {videojuegos.map(v => (
                         <option key={v.id} value={v.id}>{v.titulo} - ${v.precio}</option>
                     ))}
                 </select>
-                <input type="number" name="cantidad" placeholder="Cantidad" value={formData.cantidad} onChange={handleChange} required />
-                <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} required />
-                <button type="submit">Registrar Compra</button>
+                <input type="number" name="cantidad" placeholder="Cantidad" value={formData.cantidad} onChange={handleChange} required className="form-input" />
+                <input type="date" name="fecha" value={formData.fecha} onChange={handleChange} required className="form-input" />
+                <button type="submit" className="btn btn-primary">Registrar Compra</button>
             </form>
         </div>
     );
